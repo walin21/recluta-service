@@ -5,8 +5,8 @@ if (process.env.IS_OFFLINE) {
     options = {
         region: 'localhost',
         endpoint: 'http://localhost:8000',
-        accessKeyId: "AKIA34IK4323PW7TCBMO",
-        secretAccessKey: "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"
+        accessKeyId: "",
+        secretAccessKey: ""
     };
 }
 
