@@ -1,0 +1,24 @@
+{
+  "name": "recluta-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "deploy": "sls deploy --stage dev --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.892.0",
+    "dynamodb": "^1.3.0",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-offline": "^6.9.0",
+    "serverless-webpack": "^5.4.1",
+    "sls": "^0.1.0"
+  }
+}

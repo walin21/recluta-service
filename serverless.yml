@@ -1,0 +1,90 @@
+service: recluta-service
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  profile: serverless-admin
+  region: us-east-2
+  environment:
+    tableName: ${self:custom.tableName}
+    bucketName: ${self:custom.bucketName}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: '*'
+  lambdaHashingVersion: 20201221
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-dynamodb-local
+
+package:
+  individually: true
+
+custom:
+  tableName: recluta
+  bucketName: recluta-serviceuploadbucket-123123
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+        dir: offline/migrations
+
+functions:
+  createRecluta:
+    handler: api/endpoints/crearRecluta.handler
+    memorySize: 128
+    description: Servicio para crear reclutas.
+    events:
+      - http:
+          path: recluta
+          method: post
+          cors: true
+  listRecluta:
+    handler: api/endpoints/listarTodoRecluta.handler
+    memorySize: 128
+    description: Servicio para listar a todos los reclutas
+    events:
+      - http:
+          path: recluta
+          method: get
+          cors: true
+  listSwapiPlanets:
+    handler: api/endpoints/listarSwapiPlanets.handler
+    memorySize: 128
+    description: Servicio para listar los planetas del servicio de Swapi
+    events:
+      - http:
+          path: swapiservice
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    DemoBucketUpload:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucketName}
+    ReclutaDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: ${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
