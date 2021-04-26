@@ -3,7 +3,7 @@ Proyecto creado con serverless aws-node
 
 ####  Pruebas en localhost
 1. Para realizar las pruebas de la aplicación en node, se tiene que clonar el proyecto.
-2. Una vez clonado el proyecto nos vamos al archivo ubicado en la ruta **api/common/Dynamo.js** en el cual en la linea 11 y 12 llenamos con los datos de nuestro usuario de AWS.
+2. Una vez clonado el proyecto nos vamos al archivo ubicado en la ruta **api/common/Dynamo.js** en el cual en la linea 8 y 9 llenamos con los datos de nuestro usuario de AWS. También tenemos que cambiar el archivo **serverless.yml** las lineas 9 y 10 con el **profile** y **region** con la que se trabajará respectivamente.
 3. Una vez hecho los pasos anteriores ejecutamos el siguiente codigo en la consola.
 `npm install sls dynamodb install`
 4. Una vez ya instalado todad las dependencias, ejecutamos el siguiente codigo para poder ejecutar la aplicación en localhost:
